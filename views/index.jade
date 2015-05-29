@@ -1,0 +1,142 @@
+!!! 5
+html
+  head
+    title Raspberry Pi Alarm Interface
+    script(src="/js/jquery-2.0.3.min.js")
+    script(src="/js/bootstrap.min.js")
+    script(src="/js/index.js")
+    link(href='/css/main.css', rel='stylesheet')
+    link(href='/css/font-awesome.min.css', rel='stylesheet')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/css/bootstrap.min.css', rel='stylesheet', media='screen')
+  body
+    div(class="topRight")
+      if (!user)
+        a(href="/login") Login
+        script. 
+          window.location.href = window.location.href + "login"
+      if (user)
+        span#logFiles
+          
+        span#userInfo
+          i logged in as #{user.username}    
+          a(href="/logout") Logout 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          a(href="/logs") View Log Files
+          &nbsp;&nbsp;
+        br
+    div.mainContainer        
+      if(user)
+        h1 Node Pi Alarm Interface 
+        form(method="post", action="/")    
+        table#links(align="center")
+          tr
+            td
+                input#btnArmHome(style='width: 130px;', type='button', value='Arm Home') 
+            td
+                input#btnArmAway(style='width: 130px;', type='button', value='Arm Away') 
+            td
+                input#btnDisarm(style='width: 130px;', type='button', value='Disarm') 
+            td
+                input#btnClear(style='width: 130px;', type='button', value='Clear Alerts')
+            td
+                input#btnOpen(style='width: 130px;', type='button', value='Unlock Front Door')
+            td
+                img#statusImg
+        h2 Arming Status
+        h3 Arming:
+          span#armed DISARMED
+        h3 Security Alert:
+          span#secalert CLEAR
+        h3 Fire/CO/Gas Alert:
+          span#firealert CLEAR
+        h2 Environmental Sensor Data
+        span#envData
+          p Temperature:  
+            span#temp 0
+            span  C
+          p Humidity:  
+            span#humidity 0
+            span  %
+          p Fire Sensor:  
+            span#fire CLEAR
+            span  (Thermal Fixed/Rate of Rise)
+          p Smoke Gases:  
+            span#smoke 0
+            span  PPM
+          p Carbon Monoxide(CO):  
+            span#co 0
+            span  PPM
+          p Combustible Gas(Propane/CNG):  
+            span#gas 0
+            span  PPM
+        h2 Cameras
+        table(align="center")
+          tr
+            td
+              img#camera(src='/pictures/camera/image.jpg') 
+            td
+              img#entry(src='/pictures/entry/image.jpg')
+        span#updated
+
+        h2 Zones
+        canvas#zones(width="800", height="280");
+
+        h2 Zone Sensor Data
+        div#leftCol
+          table
+            tr
+              td Zone 1 Kitchen: 
+              td
+                span#zone1 SECURE
+            tr
+              td Zone 2 Living Room: 
+              td
+                span#zone2 SECURE
+            tr
+              td Zone 3 Bathroom: 
+              td
+                span#zone3 NOT MONITORED
+            tr 
+              td Zone 4 Entry Room: 
+              td
+                span#zone4 SECURE
+            tr
+              td Zone 5 Project Room: 
+              td
+                span#zone5 SECURE
+            tr
+              td Zone 6 Front Bedroom: 
+              td
+                span#zone6 SECURE
+        div#rightCol
+          table
+            tr
+              td Entry 1 Kitchen Window: 
+              td
+                span#entry1 SECURE
+            tr
+              td Entry 2 Front Door: 
+              td 
+                span#entry2 SECURE
+            tr
+              td Entry 3 Bedroom Window: 
+              td
+                span#entry3 SECURE
+
+           script(src='js/bootstrap.min.js')
+
+        script(src='http://code.jquery.com/jquery.js')
+        script(src='js/bootstrap.min.js')
+        script(src='/socket.io/socket.io.js')
+        script.
+          $(function(){
+            socket = io.connect();
+            $("#btnArmHome").click(function() { socket.emit("armhome", "ARMHOME"); return 0; });
+            $("#btnArmAway").click(function() { socket.emit("armaway", "ARMAWAY"); return 0; });
+            $("#btnDisarm").click(function() { socket.emit("disarm", "ARM"); return 0; });
+            $("#btnClear").click(function() { socket.emit("clear", "CLEAR") });
+            $("#btnOpen").click(function() { socket.emit("open", "OPEN") });
+          });
+
+    

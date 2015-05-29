@@ -1,0 +1,164 @@
+#camera {
+	width: 400px;
+	height: 300px;
+	transform: rotate(180deg);
+
+}
+#entry {
+	width: 400px;
+	height: 300px;
+}
+#statusImg {
+    	width: 100px;
+	height: 100px;
+        float: right;
+        align: top; 
+}
+#logFiles {
+        float: left;
+        text-aligh: left;
+}
+#userInfo {
+        float: right;
+}
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 20px;
+}
+
+.mainContainer {
+	margin: auto;
+	width: 800px;
+}
+
+h1 {
+	text-align: center;
+}
+
+#zones {
+        border: 1px solid #000000;
+	width: 800px;
+}
+
+div.topRight {
+  position: absolute;
+  top:  0px;
+  right: 0px;
+  width: 400px;
+}
+
+
+#leftCol{
+  float: left;
+  width: 400px;
+}
+
+#rightCol{
+  float: right;
+  width: 400px;
+}
+
+#links {
+  width: 800px;
+  text-align: center;
+}
+#armed {
+  text-decoration: none;
+  font-weight: bold;
+  float: right;
+}
+#secalert {
+  text-decoration: none;
+  font-weight: bold;
+  float: right;
+}
+#firealert {
+  text-decoration: none;
+  font-weight: bold;
+  float: right;
+}
+#envData {
+  font-size: 20px;
+}
+#temp {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+#humidity {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+#fire {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+#smoke {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+#co {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+#gas {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+.canvas {
+  border: 1px solid #000000;
+  width: 680px;
+  float: none;
+}
+
+.activated {
+  color: #FF0000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 21px;
+  float: right;
+}
+.relax {
+  color: #00FF00;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 19px;
+  float: right;
+}
+
+.warn {
+  color: #DDDD00;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  float: right;
+}
+
+.nominal {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 19px;
+  float: right;
+
+}
+.unmonitored {
+  color: #0000FF;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 19px;
+  float: right;
+}

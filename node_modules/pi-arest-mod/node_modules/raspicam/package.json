@@ -1,0 +1,66 @@
+{
+  "name": "raspicam",
+  "description": "A Node.js-based controller module for the Raspberry Pi camera based on a command structure similar to Johnny-Five",
+  "version": "0.2.13",
+  "homepage": "https://github.com/troyth/node-raspicam",
+  "author": {
+    "name": "Troy Conrad Therrien",
+    "email": "troyth@gmail.com"
+  },
+  "keywords": [
+    "raspberry pi",
+    "camera",
+    "raspicam",
+    "node",
+    "johnny-five"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/troyth/node-raspicam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/troyth/node-raspicam/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/troyth/node-raspicam/blob/master/LICENSE"
+    }
+  ],
+  "main": "lib/raspicam",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "lodash": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "sinon": "~1.7.3",
+    "grunt-jsbeautifier": "~0.2.2"
+  },
+  "readme": "# node-raspicam\n\nA Node.js-based controller module for the Raspberry Pi camera.\n\n_Note_: This should work well for photo and timelapse, video has yet to be tested but may work as well.\n\n## To Install\n\n\tnpm install raspicam\n\n## To Use\n\nRequire raspicam in your node app, then used the exposed constructor to create a RaspiCam object that you can use to take photos, start a timelapse, or record video.\n\n\tvar RaspiCam = require(\"raspicam\");\n\n\tvar camera = new RaspiCam({ opts });\n\n\t//to take a snapshot, start a timelapse or video recording\n\tcamera.start( );\n\n\t//to stop a timelapse or video recording\n\tcamera.stop( );\n\n\t//listen for the \"started\" event triggered when the start method has been successfully initiated\n\tcamera.on(\"started\", function(){ \n\t\t//do stuff\n\t});\n\n\t//listen for the \"read\" event triggered when each new photo/video is saved\n\tcamera.on(\"read\", function(err, filename){ \n\t\t//do stuff\n\t});\n\n\t//listen for the process to exit when the timeout has been reached\n\tcamera.on(\"exited\", function(){\n\t\t//do stuff\n\t});\n\n\n### RaspiCam Constructor\n\nThe RaspiCam() constructor creates an object that can then be triggered to take a snapshot or start a timelapse or video recording. The constructor options mirror those offered by the raspistill and raspivideo commands provided by the Raspberry Pi Camera API.\n\n\n### RaspiCam Constructor Options for Photo and Timelapse\n\n#### Required\n\n*\t`mode` : String - \"photo\" or \"timelapse\"\n*\t`output` : String - the path and filename where you want to store the photos (use sprintf-style variables, like %d, for incrementing timelapse photos)\n\n#### Optional\n\n##### Image parameter commands\n\n###### Parameters with Values\n\n*\t`w`, `width` : Integer or String - Set image width <size>\n*\t`h`, `height` : Integer or String - Set image height <size>\n*\t`q`, `quality` : Integer or String - Set jpeg quality <0 to 100>\n*\t`t`, `timeout` : Integer or String - Time (in ms) before takes picture and shuts down (if not specified, set to 5s)\n*\t`th`, `thumb` : String - Set thumbnail parameters (x:y:quality)\n*\t`e`, `encoding` : String - Encoding to use for output file (jpg, bmp, gif, png)\n*\t`x`, `exif` : String - EXIF tag to apply to captures (format as 'key=value')\n*\t`tl`, `timelapse` : Integer or String - Timelapse mode. Takes a picture every <t>ms\n\n###### Flags\n\n*\t`r`, `raw` : Add raw bayer data to jpeg metadata\n*\t`v`, `verbose` : Output verbose information during run\n*\t`d`, `demo` : Run a demo mode (cycle through range of camera options, no capture)\n\n\n##### Preview parameter commands\n\n###### Flags\n\nNote: I've kept these in for completeness, but I'm not sure how they will be useful.\n\n*\t`p`, `preview` : Preview window settings <'x,y,w,h'>\n*\t`f`, `fullscreen` : Fullscreen preview mode\n*\t`op`, `opacity` : Preview window opacity (0-255)\n*\t`n`, `nopreview` : Do not display a preview window\n\n\n###### Image parameter commands\n\n###### Parameters with Values\n\n*\t`sh`, `sharpness` : Integer or String - Set image sharpness (-100 to 100)\n*\t`co`, `contrast` : Integer or String - Set image contrast (-100 to 100)\n*\t`br`, `brightness` : Integer or String - Set image brightness (0 to 100)\n*\t`sa`, `saturation` : Integer or String - Set image saturation (-100 to 100)\n*\t`ISO`, `ISO` : Integer or String - Set capture ISO\n*\t`ev`, `ev` : Integer or String - Set EV compensation\n*\t`ex`, `exposure` : String - Set exposure mode (off,auto,night,nightpreview,backlight,spotlight,sports,snow,beach,verylong,fixedfps,antishake,fireworks)\n*\t`awb`, `awb` : String - Set AWB mode (off,auto,sun,cloud,shade,tungsten,fluorescent,incandescent,flash,horizon)\n*\t`ifx`, `imxfx` : String - Set image effect (none,negative,solarise,sketch,denoise,emboss,oilpaint,hatch,gpen,pastel,watercolour,film,blur,saturation,colourswap,washedout,posterise,colourpoint,colourbalance,cartoon)\n*\t`cfx`, `colfx` : String - Set colour effect (U:V)\n*\t`mm`, `metering` : String - Set metering mode (average,spot,backlit,matrix)\n*\t`rot`, `rotation` : Integer or String - Set image rotation (0-359)\n\n###### Flags\n\n*\t`vs`, `vstab` : Turn on video stablisation\n*\t`hf`, `hflip` : Set horizontal flip\n*\t`vf`, `vflip` : Set vertical flip\n\n\n\n### RaspiCam Constructor Options for Video\n\n#### Required\n\n*\t`mode` : String - \"video\"\n*\t`output` : String - the path and filename where you want to store the video (to write to stdout, use '-')\n\n#### Optional\n\n##### Image parameter commands\n\n###### Parameters with Values\n\n*\t`w`, `width` : Integer or String - Set image width <size> (Default is 1920)\n*\t`h`, `height` : Integer or String - Set image height <size> (Default is 1080)\n*\t`b`, `bitrate` : Integer or String - Set bitrate. Use bits per second (e.g. 10MBits/s would be 10000000)\n*\t`t`, `timeout` : Integer or String - Time (in ms) to capture for. If not specified, set to 5s. Zero to disable\n*\t`fps`, `framerate` : Integer or String - Specify the frames per second to record\n*\t`g`, `intra` : Integer or String - Specify the intra refresh period (key frame rate/GoP size)\n\n###### Flags\n\n*\t`v`, `verbose` : Output verbose information during run\n*\t`d`, `demo` : Run a demo mode (cycle through range of camera options, no capture)\n*\t`e`, `penc` : Display preview image _after_ encoding (shows compression artifacts)\n\n\n##### Preview parameter commands\n\n###### Flags\n\nNote: I've kept these in for completeness, but I'm not sure how they will be useful.\n\n*\t`p`, `preview` : Preview window settings <'x,y,w,h'>\n*\t`f`, `fullscreen` : Fullscreen preview mode\n*\t`op`, `opacity` : Preview window opacity (0-255)\n*\t`n`, `nopreview` : Do not display a preview window\n\n\n###### Image parameter commands\n\n###### Parameters with Values\n\n*\t`sh`, `sharpness` : Integer or String - Set image sharpness (-100 to 100)\n*\t`co`, `contrast` : Integer or String - Set image contrast (-100 to 100)\n*\t`br`, `brightness` : Integer or String - Set image brightness (0 to 100)\n*\t`sa`, `saturation` : Integer or String - Set image saturation (-100 to 100)\n*\t`ISO`, `ISO` : Integer or String - Set capture ISO\n*\t`ev`, `ev` : Integer or String - Set EV compensation\n*\t`ex`, `exposure` : String - Set exposure mode (off,auto,night,nightpreview,backlight,spotlight,sports,snow,beach,verylong,fixedfps,antishake,fireworks)\n*\t`awb`, `awb` : String - Set AWB mode (off,auto,sun,cloud,shade,tungsten,fluorescent,incandescent,flash,horizon)\n*\t`ifx`, `imxfx` : String - Set image effect (none,negative,solarise,sketch,denoise,emboss,oilpaint,hatch,gpen,pastel,watercolour,film,blur,saturation,colourswap,washedout,posterise,colourpoint,colourbalance,cartoon)\n*\t`cfx`, `colfx` : String - Set colour effect (U:V)\n*\t`mm`, `metering` : String - Set metering mode (average,spot,backlit,matrix)\n*\t`rot`, `rotation` : Integer or String - Set image rotation (0-359)\n\n###### Flags\n\n*\t`vs`, `vstab` : Turn on video stablisation\n*\t`hf`, `hflip` : Set horizontal flip\n*\t`vf`, `vflip` : Set vertical flip\n\n\n\n### RaspiCam Object Methods\n\n#### RaspiCam.start( )\n\nDepending on the `mode`, this will either take a snapshot (\"photo\"), start a timelapse (\"timelapse\") or start a video recording (\"video\").\n\nYou can only call start() once on a RaspiCam object, as the same physical camera cannot do multiple captures at once.\n\nReturns `false` if any errors, otherwise returns `true`.\n\nEmits the following signals:\n\n*\t`start` with payload (err, timestamp) when the capture process was started by a .start() method call\n*\t`read` with payload (err, timestamp, filename) when a new file is saved (very useful for timelapses)\n*\t`exit` with payload (timestamp) when the capture process exits via timeout\n\n\n#### RaspiCam.stop( )\n\nThis stops any ongoing camera process.\n\nReturns `true` if it stopped a process, otherwise returns `false`.\n\nEmits the following signals:\n\n*\t`stop` with payload (err, timestamp) when the capture process was stopped by a .stop() method call\n\n\n#### RaspiCam.set( opt, value )\n\nThis is a setter - it sets any option you give it. Opt must be a string (eg. \"width\").\n\n\n#### RaspiCam.get( opt )\n\nThis is a getter - it returns any option you give it. Opt must be a string (eg. \"width\").\n\n\n\n",
+  "readmeFilename": "README.md",
+  "_id": "raspicam@0.2.13",
+  "dist": {
+    "shasum": "06a9f8ae32ab95a7249c96620021d8df2b1c8561",
+    "tarball": "http://registry.npmjs.org/raspicam/-/raspicam-0.2.13.tgz"
+  },
+  "_npmVersion": "1.1.66",
+  "_npmUser": {
+    "name": "troyth",
+    "email": "troyth@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "troyth",
+      "email": "troyth@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "06a9f8ae32ab95a7249c96620021d8df2b1c8561",
+  "_resolved": "https://registry.npmjs.org/raspicam/-/raspicam-0.2.13.tgz",
+  "_from": "raspicam@*"
+}
