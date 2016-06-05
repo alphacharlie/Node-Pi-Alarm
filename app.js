@@ -109,9 +109,9 @@ var lastAlertTime = new Date() - 300000;
 var secAlertSent = new Date() - 300000;
 var fireAlertSent = new Date() - 300000;
 
-var sendUser = '742braspberry@gmail.com';
-var sendPassword = 'Security742B!';
-var recipients = 'chuck@werbick.net, 7194335111@vtext.com';
+var sendUser = 'sending@email.com';
+var sendPassword = 'Sending-email-passowrd';
+var recipients = 'recip1@domain.bogus, recip2@domain.bogus';
 
 // create reusable transporter object using SMTP transport
 var transporter = nodemailer.createTransport({
